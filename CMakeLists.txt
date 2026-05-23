@@ -23,3 +23,14 @@ target_compile_options(chttp PRIVATE
     -Wformat=2
     -fstack-protector-strong
 )
+
+# --- Example binary ---
+add_executable(example_server test/example_server.c)
+target_link_libraries(example_server PRIVATE chttp)
+target_compile_options(example_server PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Wformat=2
+    -fstack-protector-strong
+)
