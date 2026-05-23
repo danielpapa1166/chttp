@@ -19,21 +19,21 @@ Intended consumers:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                   Consumer project                       │
-│                                                          │
+│                   Consumer project                      │
+│                                                         │
 │   Route handlers (GET /status, POST /apps/:name/stop …) │
 │   Application data access, business logic               │
 └────────────────────────┬────────────────────────────────┘
                          │  registers routes / calls run
 ┌────────────────────────▼────────────────────────────────┐
 │                     bkk-http                            │
-│                                                          │
+│                                                         │
 │   Socket setup & accept loop                            │
 │   HTTP request parsing  (method, path, body)            │
 │   Route dispatch        (method + path → callback)      │
 │   HTTP response builder (status line, headers, body)    │
 │   MIME type resolution                                  │
-│   Path safety validation  (null bytes, traversal)      │
+│   Path safety validation  (null bytes, traversal)       │
 └─────────────────────────────────────────────────────────┘
                          │  POSIX / libc only
               (no external library dependencies)
