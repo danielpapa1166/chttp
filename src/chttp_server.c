@@ -179,5 +179,11 @@ void chttp_server_stop(chttp_server_t *srv)
     if (!srv)
         return;
     srv->stop_flag = 1;
-    shutdown(srv->listen_fd, SHUT_RDWR);
+    /* close() is the only portable way to unblock a thread stuck in accept().
+     * shutdown() does not reliably wake up accept() on Linux.
+     * Destroy checks listen_fd >= 0 before closing, so set to -1 here. */
+    if (srv->listen_fd >= 0) {
+        close(srv->listen_fd);
+        srv->listen_fd = -1;
+    }
 }
