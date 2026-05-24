@@ -48,7 +48,7 @@ chttp_server_t *chttp_server_create(uint16_t port)
     memset(&addr, 0, sizeof(addr));
     addr.sin_family      = AF_INET;
     addr.sin_port        = htons(port);
-    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     if (bind(srv->listen_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
         close(srv->listen_fd);
